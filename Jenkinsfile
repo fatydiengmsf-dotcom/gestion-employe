@@ -1,11 +1,11 @@
 pipeline {
     // deploiement ci-cd mono-repo
-    // agent any
+     //agent any
 
     agent {
         label 'agent-windows'  
        
-    }
+  //  }
 
     environment {
         DOCKERHUB_USER = "ditdevops1"
@@ -22,6 +22,10 @@ pipeline {
             }
         }
 
+        
+
+
+      
         stage('Build Backend Image') {
             steps {
                 bat "docker build -t ${DOCKERHUB_USER}/${BACKEND_IMAGE}:${IMAGE_TAG} ./backend"
@@ -46,6 +50,7 @@ pipeline {
                         docker login -u %DOCKER_USER% -p %DOCKER_PASS%
                         docker push %DOCKERHUB_USER%/%BACKEND_IMAGE%:%IMAGE_TAG%
                         docker push %DOCKERHUB_USER%/%FRONTEND_IMAGE%:%IMAGE_TAG%
+                        
                     """
                 }
             }
